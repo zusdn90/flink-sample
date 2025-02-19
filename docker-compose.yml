@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  data-producer:
+    build: .
+    container_name: data-producer
+    ports:
+      - "5000:5000"
+
+  flink-job:
+    build: ./flink-job
+    container_name: flink-job
+    depends_on:
+      - data-producer
+
