@@ -13,7 +13,7 @@ def main():
 
     # HTTP Source로 Flask API에서 데이터 가져오기
     data_stream = env.add_source(
-        HttpSource("http://data-producer:5000/data"),
+        HttpSource("http://localhost:5000/data"),
         Types.STRING()
     )
 

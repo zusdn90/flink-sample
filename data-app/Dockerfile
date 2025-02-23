@@ -11,6 +11,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 애플리케이션 코드 복사
 COPY . .
 
+# 컨테이너에서 5000포트 개방
+EXPOSE 5000
+
 # Flask 애플리케이션 실행
 CMD ["python", "data_producer.py"]
 
