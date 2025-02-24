@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  jobmanager:
+    image: flink:1.0
+    container_name: flink-jobmanager
+    ports:
+      - "8081:8081"
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    command: jobmanager
+
+  taskmanager-1:
+    image: flink:1.0
+    container_name: flink-taskmanager-1
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    depends_on:
+      - jobmanager
+    command: taskmanager
+

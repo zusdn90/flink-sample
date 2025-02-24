@@ -2,14 +2,17 @@ version: '3.8'
 
 services:
   data-producer:
-    build: .
+    image: data-producer:1.0
     container_name: data-producer
     ports:
       - "5000:5000"
 
   flink-job:
-    build: ./flink-job
+    image: flink-job:1.0
     container_name: flink-job
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    command: taskmanager
     depends_on:
       - data-producer
 
