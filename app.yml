@@ -7,12 +7,3 @@ services:
     ports:
       - "5000:5000"
 
-  flink-job:
-    image: flink-job:1.0
-    container_name: flink-job
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
-    command: taskmanager
-    depends_on:
-      - data-producer
-

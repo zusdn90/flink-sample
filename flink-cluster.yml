@@ -2,20 +2,39 @@ version: '3.8'
 
 services:
   jobmanager:
-    image: flink:1.0
+    image: flink:2.0
     container_name: flink-jobmanager
     ports:
       - "8081:8081"
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
     command: jobmanager
+    depends_on:
+      - data-producer
+    volumes:
+      - ./flink_table_job.py:/opt/flink/app/flink_table_job.py
+    networks:
+      - flink-network
 
   taskmanager-1:
-    image: flink:1.0
+    image: flink:2.0
     container_name: flink-taskmanager-1
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
     depends_on:
       - jobmanager
     command: taskmanager
+    networks:
+      - flink-network
+   
+  data-producer:
+    image: data-producer:1.0
+    container_name: data-producer
+    ports:
+      - "5000:5000"
+    networks:
+      - flink-network
 
+networks:
+  flink-network:
+    driver: bridge

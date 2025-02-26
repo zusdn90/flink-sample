@@ -10,4 +10,7 @@ RUN rm -rf /opt/java
 ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-arm64"
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
-RUN pip3 install apache-flink==1.18.0
+RUN pip3 install apache-flink==1.18.0 pyflink requests
+
+# /opt/flink/app 디렉토리 생성
+RUN mkdir -p /opt/flink/app
