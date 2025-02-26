@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  flink-job:
+    image: flink-job:2.0
+    container_name: flink-job
+

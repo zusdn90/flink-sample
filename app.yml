@@ -1,9 +1,0 @@
-version: '3.8'
-
-services:
-  data-producer:
-    image: data-producer:1.0
-    container_name: data-producer
-    ports:
-      - "5000:5000"
-

@@ -18,6 +18,7 @@ def generate_data():
             "amount": round(random.uniform(1.0, 100.0), 2),
             "timestamp": int(time.time())
         }
+        print("generate data", data)
         if len(generated_data) >= 100:  # 최근 100개 데이터만 유지
             generated_data.pop(0)
         generated_data.append(data)
