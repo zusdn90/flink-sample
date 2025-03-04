@@ -1,4 +1,4 @@
-from pyflink.datastream import StreamExecutionEnvironment
+from pyflink.datastream import StreamExecutionEnvironment, RuntimeExecutionMode
 from pyflink.table import StreamTableEnvironment
 import requests
 import json
@@ -6,6 +6,8 @@ import time
 
 # Flink 실행 환경 설정
 env = StreamExecutionEnvironment.get_execution_environment()
+env.set_runtime_mode(RuntimeExecutionMode.STREAMING)
+env.set_parallelism(1)
 t_env = StreamTableEnvironment.create(env)
 
 # 데이터를 가져오는 함수
@@ -44,7 +46,7 @@ t_env.execute_sql("""
 
 # DataStream 변환
 ds = env.from_collection(FlaskDataSource())
-table = t_env.from_data_stream(ds, ["user_id", "action", "amount", "timestamp"])
+table = t_env.from_data_stream(ds, ["user_id", "action", "amount", "event_time"])
 
 # 집계 쿼리 실행
 result_table = t_env.sql_query("""
@@ -56,6 +58,8 @@ result_table = t_env.sql_query("""
     FROM actions
     GROUP BY action, TUMBLE(proc_time, INTERVAL '10' SECOND)
 """)
+
+print("result table: ", result_table)
 
 # 결과 출력
 t_env.to_append_stream(result_table).print()

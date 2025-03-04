@@ -8,6 +8,7 @@ services:
       - "8081:8081"
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - FLINK_CONF_DIR=/opt/flink/conf
     command: jobmanager
     depends_on:
       - data-producer
@@ -26,7 +27,7 @@ services:
     command: taskmanager
     networks:
       - flink-network
-   
+  
   data-producer:
     image: data-producer:2.0
     container_name: data-producer
