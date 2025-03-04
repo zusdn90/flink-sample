@@ -16,4 +16,4 @@ RUN pip3 install pyflink requests
 COPY . .
 
 # PyFlink 실행
-CMD ["flink","run","-m","jobmanager:8081","--python","flink_job.py"]
+CMD ["flink","run","-m","flink-jobmanager:8081","--python","flink_table_job.py"]
